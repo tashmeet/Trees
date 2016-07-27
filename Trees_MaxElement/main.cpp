@@ -7,6 +7,8 @@
 //
 
 #include <iostream>
+#include<queue>
+#include<stack>
 using namespace std;
 
 
@@ -22,11 +24,20 @@ class Tree
         int Max_ElementRecursive(Node *);
         Node* insert_recursive(int data, Node* node);
         int SizeOfTreeRecursive(Node *);
+        void deepestNodeInBinaryTreeRecursive(Node *);
     
     public:
         void Max_Element();
         void insert(int data);
         void SizeOfTree();
+        void deepestNodeInBinaryTree();
+        int NumberOfBinaryLeaves();
+        int FindLevelWithMaxSum(Node* subTree);
+        int ifTreesAreStructurallySame(Node* subTree1, Node* subTree2);
+        void PrintAllPath(Node* subTree, int path[],int pathLength);
+        int add(Node* subTree);
+        Node* MirrorOfBinaryTree(Node* subTree);
+    int ifTreesAreMirror(Node* subTree1, Node* subTree2);
 };
 
 //Max Element in the Tree
@@ -113,6 +124,226 @@ void Tree::insert(int data)
 {
     root = insert_recursive(data, root);
 }
+
+//Deepest Node in Binary Tree
+void Tree::deepestNodeInBinaryTree()
+{
+    if(root == NULL)
+    {
+        return;
+    }
+    deepestNodeInBinaryTreeRecursive(root);
+}
+
+
+void Tree::deepestNodeInBinaryTreeRecursive(Node *subTree)
+{
+    queue<Node*> Q;
+    Node* current;
+    Q.push(root);
+    while(!Q.empty())
+    {
+        current = Q.front();
+        Q.pop();
+        if(current->left)
+            Q.push(current->left);
+        if(current->right)
+            Q.push(current->right);
+        
+    }
+    cout<<"Deepest node in the tree is:"<<current;
+}
+
+
+//Find the number of leaves in binary tree.
+
+int Tree:: NumberOfBinaryLeaves()
+{
+    Node* current;
+    queue<Node*> Q;
+    int count=0;
+    if(root==NULL)
+        return 0;
+    Q.push(root);
+    while(!Q.empty())
+    {
+        current = Q.front();
+        Q.pop();
+        if(!current->left && !current->right)
+            count++;
+        else
+        {
+            if(current->left)
+                Q.push(current->left);
+            if(current->right)
+                Q.push(current->right);
+        }
+    }
+    return count;
+    
+}
+
+//Given two binary trees return true if they are structurally identical
+
+int Tree::ifTreesAreStructurallySame(Node* subTree1, Node* subTree2)
+{
+    if((subTree1==NULL) && (subTree2==NULL))
+        return 1;
+    if((subTree1 == NULL) || (subTree2 ==NULL))
+        return 0;
+    return (subTree1->value == subTree2->value && ifTreesAreStructurallySame(subTree1->left, subTree2->left) && ifTreesAreStructurallySame(subTree1->right, subTree2->right));
+}
+
+
+
+//Finding the level which is having maximum sum in the binary tree
+
+int Tree::FindLevelWithMaxSum(Node* subTree)
+{
+    Node* temp;
+    int level =0, maxLevel =0;
+    queue<Node*> Q;
+    int currentSum=0,maxSum =0;
+    if(!root)
+        return 0;
+    Q.push(root);
+    Q.push(NULL);
+    while(!Q.empty())
+    {
+        temp = Q.front();
+        Q.pop();
+        if(temp == NULL)
+        {
+            if(currentSum>maxSum)
+            {
+                maxSum = currentSum;
+                maxLevel = level;
+            }
+            currentSum=0;
+            if(!Q.empty())
+            {
+                Q.push(NULL);
+            }
+            level++;
+        }
+        else
+        {
+            currentSum+= temp ->value;
+            if(temp->left)
+                Q.push(temp->left);
+            if(temp->right)
+                Q.push(temp->right);
+        }
+    }
+    return maxLevel;
+    
+}
+
+
+//Print all root to leaf path.
+
+void Tree::PrintAllPath(Node* subTree, int path[],int pathLength)
+{
+    if(root == NULL)
+        return;
+    
+    path[pathLength] = subTree->value;
+    pathLength++;
+    
+    if(subTree->left == NULL && subTree->right== NULL)
+    {
+        for(int i=0;i<pathLength;i++)
+        {
+            cout<<path[i];
+        }
+    }
+    else
+    {
+        PrintAllPath(subTree->left, path, pathLength);
+        PrintAllPath(subTree->right, path, pathLength);
+    }
+    
+}
+
+
+//Given a sum whether there exist a path from root to any of the nodes.
+
+int HasPathSum(Node* subTree, int sum)
+{
+    if(subTree == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        int remainingSum = sum-subTree->value;
+        if((subTree->left && subTree->right)||())
+        
+        
+    }
+    
+    
+    
+}
+
+
+
+
+//Find the sum of all elements in binary tree
+
+int Tree::add(Node* subTree)
+{
+    if(root == NULL)
+        return 0;
+    else
+        return (subTree->value + add(subTree->left)+add(subTree->right));
+}
+
+
+//Convert a tree to its Mirror Tree. Mirror of a tree is another tree with left and right children of all non-leaf nodes interchanged.
+
+Node* Tree::MirrorOfBinaryTree(Node* subTree)
+{
+    Node* temp;
+    if(subTree)
+    {
+        MirrorOfBinaryTree(subTree->left);
+        MirrorOfBinaryTree(subTree->right);
+        
+        temp= subTree->left;
+        subTree->left=subTree->right;
+        subTree->right = temp;
+    }
+    return subTree;
+}
+
+
+//Given 2 trees, check whether they are mirrors of each other.
+
+int Tree::ifTreesAreMirror(Node* subTree1, Node* subTree2)
+{
+    if(subTree1==NULL && subTree2==NULL)
+        return 1;
+    if(subTree1==NULL || subTree2==NULL)
+        return 0;
+    if(subTree1->value != subTree2->value)
+        return 0;
+    else
+        return(ifTreesAreMirror(subTree1->left, subTree2->right) && ifTreesAreMirror(subTree1->right, subTree2->left));
+}
+
+
+//Construct a binary tree from given inorder and preorder traversals
+//Inorder- DBEAFC
+//PreOrder- ABDECF
+
+Node* BuildBinaryTree(int inOrder[], int preOrder[], int inStart, int inEnd)
+{
+    
+}
+
+//Traverse a binary tree in Zigzag Order.
+
 
 
 

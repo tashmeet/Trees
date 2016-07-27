@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5A8108DA1CD2B4D8002C58DF /* Trees_MaxElement */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Trees_MaxElement; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A8108DA1CD2B4D8002C58DF /* TreesPart2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TreesPart2; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A8108DD1CD2B4D8002C58DF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,7 +49,7 @@
 		5A8108DB1CD2B4D8002C58DF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5A8108DA1CD2B4D8002C58DF /* Trees_MaxElement */,
+				5A8108DA1CD2B4D8002C58DF /* TreesPart2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,7 +79,7 @@
 			);
 			name = Trees_MaxElement;
 			productName = Trees_MaxElement;
-			productReference = 5A8108DA1CD2B4D8002C58DF /* Trees_MaxElement */;
+			productReference = 5A8108DA1CD2B4D8002C58DF /* TreesPart2 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -209,14 +209,14 @@
 		5A8108E21CD2B4D8002C58DF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TreesPart2;
 			};
 			name = Debug;
 		};
 		5A8108E31CD2B4D8002C58DF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TreesPart2;
 			};
 			name = Release;
 		};
@@ -239,6 +239,7 @@
 				5A8108E31CD2B4D8002C58DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
